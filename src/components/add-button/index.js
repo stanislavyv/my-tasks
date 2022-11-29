@@ -14,9 +14,9 @@ const StyledFab = styled(Fab)({
     },
 });
 
-const AddButton = () => {
+const AddButton = ({ onClick }) => {
     return (
-        <StyledFab color="primary" aria-label="add">
+        <StyledFab onClick={onClick} color="primary" aria-label="add">
             <AddIcon />
         </StyledFab>
     );
