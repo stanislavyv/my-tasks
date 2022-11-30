@@ -15,14 +15,14 @@ const StyledAccordionSummary = styled(AccordionSummary)({
     },
 });
 
-const TaskTitle = () => {
+const TaskTitle = ({ children }) => {
     return (
         <StyledAccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
         >
-            <Typography>Accordion 1</Typography>
+            <Typography>{children}</Typography>
             <IconButton
                 sx={{
                     p: 0,

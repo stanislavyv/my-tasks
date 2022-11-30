@@ -9,11 +9,11 @@ import {
 import TaskDetails from './task-details';
 import TaskTitle from './task-title';
 
-const Task = ({ children }) => {
+const Task = ({ task }) => {
     return (
         <Accordion>
-            <TaskTitle />
-            <TaskDetails />
+            <TaskTitle>{task.name}</TaskTitle>
+            <TaskDetails>{task.description}</TaskDetails>
         </Accordion>
     );
 };

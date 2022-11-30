@@ -1,13 +1,9 @@
 import { AccordionDetails, Typography } from '@mui/material';
 
-const TaskDetails = () => {
+const TaskDetails = ({ children }) => {
     return (
         <AccordionDetails>
-            <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-            </Typography>
+            <Typography>{children}</Typography>
         </AccordionDetails>
     );
 };

@@ -1,7 +1,5 @@
 change color primary theme
-add pet validation text-input
 dark theme switch
 delete icon change color hover?
 delete button stop propagation
-app-bar position fixed?
-are you sure on delete?
+loading spinner
