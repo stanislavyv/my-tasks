@@ -11,21 +11,21 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import AddButton from '../add-button';
+import AddButton from '../buttons/add-button';
 
-const PATTERN = /^[a-zA-Zа-яА-Я0-9\s!\.,:;'"%&*()\-_=+?\/]+$/;
+const PATTERN_INPUT = /^[a-zA-Zа-яА-Я0-9\s!\.,:;'"%&*()\-_=+?\/]+$/;
 
 const validationSchema = yup.object({
     name: yup
         .string('Enter task name')
         .min(6, 'Name must be minimum 6 characters')
         .max(25, 'Name cannot be more than 25 characters')
-        .matches(PATTERN, 'Name contains illegal characters')
+        .matches(PATTERN_INPUT, 'Name contains illegal characters')
         .required('Name is required'),
     description: yup
         .string('Enter description')
         .max(100, 'Description cannot be more than 100 characters')
-        .matches(PATTERN, 'Description contains illegal characters'),
+        .matches(PATTERN_INPUT, 'Description contains illegal characters'),
 });
 
 export default function AddDialog() {

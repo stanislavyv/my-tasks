@@ -15,7 +15,6 @@ const TasksList = () => {
 
     return (
         <Stack spacing={2} m={4} mt={10}>
-            {console.log(tasks)}
             {tasks.map((task, index) => (
                 <Task task={task} key={index}></Task>
             ))}

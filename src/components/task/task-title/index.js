@@ -1,11 +1,7 @@
-import {
-    styled,
-    AccordionSummary,
-    IconButton,
-    Typography,
-} from '@mui/material';
+import { styled, AccordionSummary, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DeleteIcon from '@mui/icons-material/Delete';
+
+import DeleteButton from '../../buttons/delete-button';
 
 const StyledAccordionSummary = styled(AccordionSummary)({
     justifyContent: 'center',
@@ -15,7 +11,7 @@ const StyledAccordionSummary = styled(AccordionSummary)({
     },
 });
 
-const TaskTitle = ({ children }) => {
+const TaskTitle = ({ children, key }) => {
     return (
         <StyledAccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -23,15 +19,7 @@ const TaskTitle = ({ children }) => {
             id="panel1a-header"
         >
             <Typography>{children}</Typography>
-            <IconButton
-                sx={{
-                    p: 0,
-                    justifySelf: 'space-between',
-                    alignSelf: 'space-between',
-                }}
-            >
-                <DeleteIcon />
-            </IconButton>
+            <DeleteButton key={key} />
         </StyledAccordionSummary>
     );
 };
