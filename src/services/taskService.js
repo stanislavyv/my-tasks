@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { dbUrl } from '../config/firebase';
 
-axios.defaults.baseURL = dbUrl;
+axios.defaults.baseURL = `${dbUrl}.json`;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const getAll = async () => {
@@ -13,7 +13,7 @@ export const getAll = async () => {
     }
 };
 
-export const create = async (data) => {
+export const createTask = async (data) => {
     try {
         return await axios.post('', data);
     } catch (e) {
@@ -21,4 +21,4 @@ export const create = async (data) => {
     }
 };
 
-export const deleteOne = (id) => {};
+export const deleteTask = (id) => {};
