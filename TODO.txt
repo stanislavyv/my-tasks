@@ -1,3 +1,1 @@
-change color primary theme
-dark theme switch
 undo task delete
