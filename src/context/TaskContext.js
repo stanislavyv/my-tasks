@@ -17,9 +17,9 @@ const TaskProvider = ({ children }) => {
         });
     };
 
-    const deleteTask = (key) => {
-        taskService.deleteTask(key).then(() => {
-            setTasks((prev) => prev.filter((t) => t.key != key));
+    const deleteTask = (id) => {
+        taskService.deleteTask(id).then((res) => {
+            setTasks((prev) => prev.filter((t) => t.id != id));
         });
     };
 
