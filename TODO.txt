@@ -1,4 +1,3 @@
 change color primary theme
 dark theme switch
-loading spinner
 undo task delete

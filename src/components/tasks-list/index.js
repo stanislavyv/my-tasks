@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Task from '../task';
 
 const StyledTasksList = styled(Box)({
-    height: '100vh',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
