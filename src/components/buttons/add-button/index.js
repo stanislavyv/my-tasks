@@ -3,16 +3,15 @@ import styled from '@mui/material/styles/styled';
 
 import AddIcon from '@mui/icons-material/Add';
 
-const StyledFab = styled(Fab)({
+const StyledFab = styled(Fab)(({ theme }) => ({
     position: 'fixed',
     bottom: '2%',
     left: '2%',
-    backgroundColor: '#1976d2d1',
 
     '&:hover': {
-        backgroundColor: '#005cb7d1',
+        backgroundColor: theme.palette.primary.hover,
     },
-});
+}));
 
 const AddButton = ({ onClick }) => {
     return (

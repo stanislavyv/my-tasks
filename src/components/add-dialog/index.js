@@ -63,7 +63,9 @@ export default function AddDialog() {
         <>
             <AddButton onClick={handleClickOpen} />
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle align="center">Add New Task</DialogTitle>
+                <DialogTitle align="center" color="primary">
+                    Add New Task
+                </DialogTitle>
                 <DialogContent>
                     <form id="add-form" onSubmit={formik.handleSubmit}>
                         <TextField

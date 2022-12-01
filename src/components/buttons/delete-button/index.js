@@ -5,10 +5,10 @@ import { useTasks } from '../../../context/TaskContext';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const StyledIconButton = styled(IconButton)({
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
     transition: '0.4s',
-    '&:hover': { color: '#9b2335' },
-});
+    '&:hover': { color: theme.palette.primary.main },
+}));
 
 const DeleteButton = ({ id }) => {
     const { deleteTask } = useTasks();
