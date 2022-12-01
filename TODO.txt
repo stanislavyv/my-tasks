@@ -1,5 +1,4 @@
 change color primary theme
 dark theme switch
-delete icon change color hover?
-delete button stop propagation
 loading spinner
+undo task delete

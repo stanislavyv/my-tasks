@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import * as taskService from '../services/taskService';
+import { notifySuccess, notifyDelete } from '../services/toastService';
 
 const TaskContext = React.createContext({});
 TaskContext.displayName = 'TaskContext';
@@ -14,12 +15,14 @@ const TaskProvider = ({ children }) => {
     const addTask = (taskObj) => {
         taskService.createTask(taskObj).then(() => {
             setTasks((prev) => [taskObj, ...prev]);
+            notifySuccess('Task Added');
         });
     };
 
     const deleteTask = (id) => {
         taskService.deleteTask(id).then((res) => {
             setTasks((prev) => prev.filter((t) => t.id != id));
+            notifyDelete('Task Deleted');
         });
     };
 

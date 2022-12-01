@@ -21,7 +21,7 @@ export const getAllTasks = async () => {
 
 export const createTask = async (data) => {
     try {
-        return await axios.post('', data);
+        return await axios.post('.json', data);
     } catch (e) {
         console.log(e);
     }
