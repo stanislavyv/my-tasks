@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
+
+import { trackPromise } from 'react-promise-tracker';
 import * as taskService from '../services/taskService';
 import { notifySuccess, notifyDelete } from '../services/toastService';
 
@@ -9,7 +11,17 @@ const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        taskService.getAllTasks().then((res) => setTasks(res));
+        trackPromise(
+            taskService
+                .getAllTasks()
+                .then((res) => {
+                    setTasks(res);
+                })
+                .catch(() => {
+                    setLoading(false);
+                }),
+            'main-area'
+        );
     }, []);
 
     const addTask = (taskObj) => {
