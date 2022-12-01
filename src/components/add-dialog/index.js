@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useTasks } from '../../context/TaskContext';
+import { useThemeMode } from '../../context/ThemeModeContext';
 
 import * as yup from 'yup';
 
@@ -31,6 +32,7 @@ const validationSchema = yup.object({
 export default function AddDialog() {
     const [open, setOpen] = useState(false);
     const { addTask } = useTasks();
+    const { mode } = useThemeMode();
 
     const formik = useFormik({
         initialValues: {
@@ -50,6 +52,8 @@ export default function AddDialog() {
         },
     });
 
+    const textColor = mode === 'light' ? 'primary' : 'secondary';
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -63,13 +67,14 @@ export default function AddDialog() {
         <>
             <AddButton onClick={handleClickOpen} />
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle align="center" color="primary">
+                <DialogTitle align="center" color={textColor}>
                     Add New Task
                 </DialogTitle>
                 <DialogContent>
                     <form id="add-form" onSubmit={formik.handleSubmit}>
                         <TextField
                             autoFocus
+                            color={textColor}
                             margin="dense"
                             id="name"
                             name="name"
@@ -88,6 +93,7 @@ export default function AddDialog() {
                             }
                         />
                         <TextField
+                            color={textColor}
                             margin="dense"
                             id="description"
                             name="description"
@@ -111,8 +117,10 @@ export default function AddDialog() {
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit" form="add-form">
+                    <Button color={textColor} onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button color={textColor} type="submit" form="add-form">
                         Add
                     </Button>
                 </DialogActions>

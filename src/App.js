@@ -1,4 +1,5 @@
 import TaskProvider from './context/TaskContext';
+import { useThemeMode } from './context/ThemeModeContext';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +10,8 @@ import TasksList from './components/tasks-list';
 import AddDialog from './components/add-dialog';
 
 function App() {
+    const { mode } = useThemeMode();
+
     return (
         <>
             <MainContainer>
@@ -17,7 +20,7 @@ function App() {
                     <TasksList />
                     <AddDialog />
                 </TaskProvider>
-                <ToastContainer limit={1} position="top-right" />
+                <ToastContainer limit={1} position="top-right" theme={mode} />
             </MainContainer>
         </>
     );

@@ -2,19 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-import theme from './Theme';
-import { ThemeProvider } from '@mui/material';
-
 import globalStyles from './GlobalStyles';
 import CssBaseline from '@mui/material/CssBaseline';
+import ThemeModeProvider from './context/ThemeModeContext';
 
 ReactDOM.render(
     <>
-        <ThemeProvider theme={theme}>
+        <ThemeModeProvider>
             {globalStyles}
             <CssBaseline />
             <App />
-        </ThemeProvider>
+        </ThemeModeProvider>
     </>,
     document.getElementById('root')
 );

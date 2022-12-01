@@ -6,7 +6,7 @@ import MainHeading from './main-heading';
 const AppHeaderBar = () => {
     return (
         <Box position="relative">
-            <AppBar position="fixed">
+            <AppBar position="fixed" enableColorOnDark={true}>
                 <Toolbar variant="dense">
                     <ThemeSwitch />
                     <MainHeading />
