@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
+import { useTasks } from '../../context/TaskContext';
 
 import * as yup from 'yup';
-import { createTask } from '../../services/taskService';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -30,6 +30,7 @@ const validationSchema = yup.object({
 
 export default function AddDialog() {
     const [open, setOpen] = useState(false);
+    const { addTask } = useTasks();
 
     const formik = useFormik({
         initialValues: {
@@ -42,7 +43,7 @@ export default function AddDialog() {
                 return;
             }
 
-            createTask(values);
+            addTask(values);
 
             setOpen(false);
             formik.resetForm();

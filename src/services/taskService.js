@@ -9,12 +9,11 @@ export const getAllTasks = async () => {
         const result = await axios.get();
 
         // Firebase returns nested objects, this will convert the data to array
-        return Object.entries(result.data).reduce(
-            (acc, [key, { name, description }]) => {
+        return Object.entries(result.data)
+            .reduce((acc, [key, { name, description }]) => {
                 return [...acc, { key, name, description }];
-            },
-            []
-        );
+            }, [])
+            .reverse(); // reverse so newly added items (by shift()) are shown first
     } catch (e) {
         console.log(e);
     }

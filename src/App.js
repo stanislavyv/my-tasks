@@ -1,3 +1,5 @@
+import TaskProvider from './context/TaskContext';
+
 import MainContainer from './components/main-container';
 import AppHeaderBar from './components/app-header-bar';
 import TasksList from './components/tasks-list';
@@ -8,8 +10,10 @@ function App() {
         <>
             <MainContainer>
                 <AppHeaderBar />
-                <TasksList />
-                <AddDialog />
+                <TaskProvider>
+                    <TasksList />
+                    <AddDialog />
+                </TaskProvider>
             </MainContainer>
         </>
     );
