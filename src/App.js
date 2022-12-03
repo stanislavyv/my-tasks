@@ -20,7 +20,12 @@ function App() {
                     <TasksList />
                     <AddDialog />
                 </TaskProvider>
-                <ToastContainer limit={1} position="top-right" theme={mode} />
+                <ToastContainer
+                    limit={1}
+                    position="top-right"
+                    closeOnClick={false}
+                    theme={mode}
+                />
             </MainContainer>
         </>
     );
