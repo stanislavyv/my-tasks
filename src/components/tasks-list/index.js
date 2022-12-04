@@ -2,7 +2,7 @@ import { usePromiseTracker } from 'react-promise-tracker';
 
 import { useTasks } from '../../context/TaskContext';
 
-import { Box, Stack, styled } from '@mui/material';
+import { Box, Stack, styled, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import Task from '../task';
@@ -28,11 +28,18 @@ const TasksList = () => {
                 />
             ) : (
                 <Stack spacing={2} m={4} mt={10}>
-                    {tasks?.map((task, index) => (
-                        // concat the index to task because
-                        // nested delete button uses it
-                        <Task task={{ ...task, index }} key={index}></Task>
-                    ))}
+                    {tasks.length > 0 ? (
+                        tasks.map((task, index) => (
+                            // concat the index to task because
+                            // nested delete button uses it
+                            <Task task={{ ...task, index }} key={index}></Task>
+                        ))
+                    ) : (
+                        <Typography align={'center'} variant={'h4'}>
+                            You've completed all your tasks! Why don't you add
+                            some more?
+                        </Typography>
+                    )}
                 </Stack>
             )}
         </StyledTasksList>

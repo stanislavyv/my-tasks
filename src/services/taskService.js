@@ -8,6 +8,10 @@ export const getAllTasks = async () => {
     try {
         const result = await axios.get('.json');
 
+        if (!result.data) {
+            return [];
+        }
+
         // Firebase returns nested objects, this will convert the data to array
         return Object.entries(result.data)
             .reduce((acc, [id, { name, description }]) => {
