@@ -1,5 +1,1 @@
-undo task delete
-make timeoutIdState array and delete all on unmount
-set min width task
-show text on empty tasks
-clean collection onClose toast
+change task styles
