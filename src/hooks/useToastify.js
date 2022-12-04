@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import ClearIcon from '@mui/icons-material/Clear';
 import Undo from '../components/undo';
@@ -15,13 +15,13 @@ export default () => {
         });
     };
 
-    const notifyDelete = (msg, onUndoHandler) => {
+    const notifyDelete = (msg, onUndoHandler, onCloseHandler) => {
         toast(<Undo msg={msg} onUndo={onUndoHandler} />, {
-            icon: ClearIcon,
+            icon: <ClearIcon />,
             autoClose: 6000,
             hideProgressBar: false,
-            // pauseOnHover: true,
-            pauseOnHover: false,
+            pauseOnHover: true,
+            onClose: onCloseHandler,
         });
     };
 

@@ -28,8 +28,10 @@ const TasksList = () => {
                 />
             ) : (
                 <Stack spacing={2} m={4} mt={10}>
-                    {tasks.map((task, index) => (
-                        <Task task={task} key={index}></Task>
+                    {tasks?.map((task, index) => (
+                        // concat the index to task because
+                        // nested delete button uses it
+                        <Task task={{ ...task, index }} key={index}></Task>
                     ))}
                 </Stack>
             )}

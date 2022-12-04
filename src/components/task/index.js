@@ -12,7 +12,7 @@ import TaskTitle from './task-title';
 const Task = ({ task }) => {
     return (
         <Accordion>
-            <TaskTitle id={task.id}>{task.name}</TaskTitle>
+            <TaskTitle task={task}>{task.name}</TaskTitle>
             <TaskDetails>{task.description}</TaskDetails>
         </Accordion>
     );

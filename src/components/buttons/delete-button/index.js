@@ -10,13 +10,13 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
     '&:hover': { color: theme.palette.primary.hover },
 }));
 
-const DeleteButton = ({ id }) => {
+const DeleteButton = ({ task }) => {
     const { deleteTask } = useTasks();
 
     const onDeleteClick = (e) => {
         // so Accordion doesn't expand on delete
         e.stopPropagation();
-        deleteTask(id);
+        deleteTask(task);
     };
 
     return (

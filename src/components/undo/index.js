@@ -2,8 +2,8 @@ import { Box, Typography, Button } from '@mui/material';
 
 const Undo = ({ msg, onUndo, closeToast }) => {
     const onClickHandler = () => {
-        onUndo();
-        closeToast();
+        onUndo && onUndo();
+        onUndo && closeToast();
     };
 
     return (

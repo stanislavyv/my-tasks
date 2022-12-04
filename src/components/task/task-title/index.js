@@ -11,7 +11,7 @@ const StyledAccordionSummary = styled(AccordionSummary)({
     },
 });
 
-const TaskTitle = ({ children, id }) => {
+const TaskTitle = ({ children, task }) => {
     return (
         <StyledAccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -19,7 +19,7 @@ const TaskTitle = ({ children, id }) => {
             id="panel1a-header"
         >
             <Typography>{children}</Typography>
-            <DeleteButton id={id} />
+            <DeleteButton task={task} />
         </StyledAccordionSummary>
     );
 };
