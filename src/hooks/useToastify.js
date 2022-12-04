@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import ClearIcon from '@mui/icons-material/Clear';
 import Undo from '../components/undo';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 export default () => {
     const notifySuccess = (msg) => {
+        toast.dismiss();
         toast.success(msg, {
             autoClose: 2500,
             hideProgressBar: true,
@@ -16,6 +17,7 @@ export default () => {
     };
 
     const notifyDelete = (msg, onUndoHandler, onCloseHandler) => {
+        toast.dismiss();
         toast(<Undo msg={msg} onUndo={onUndoHandler} />, {
             icon: <ClearIcon />,
             autoClose: 6000,

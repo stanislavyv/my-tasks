@@ -23,7 +23,6 @@ const TaskProvider = ({ children }) => {
         );
 
         return () => {
-            console.log('here');
             deletedTasks.forEach((d) => {
                 taskService.deleteTask(d.id);
             });
@@ -61,7 +60,6 @@ const TaskProvider = ({ children }) => {
     };
 
     const deletePermanently = (id) => {
-        console.log(isDeleting.current);
         if (isDeleting.current) {
             taskService.deleteTask(id);
         }
@@ -72,7 +70,7 @@ const TaskProvider = ({ children }) => {
 
         // We can mutate the input array here because
         // it's a copy of the state array
-        const latestDeletedTask = deletedTasks.pop();
+        deletedTasks.pop();
         setDeletedTasks(deletedTasks);
 
         const newTasks = [...tasks];
