@@ -9,7 +9,7 @@ const StyledFab = styled(Fab)(({ theme }) => ({
     left: '2%',
 
     '&:hover': {
-        backgroundColor: theme.palette.primary.hover,
+        backgroundColor: theme.palette.lighter.main,
     },
 }));
 

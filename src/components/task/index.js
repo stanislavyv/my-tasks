@@ -1,11 +1,5 @@
-import {
-    styled,
-    Paper,
-    Typography,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-} from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+
 import TaskDetails from './task-details';
 import TaskTitle from './task-title';
 

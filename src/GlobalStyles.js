@@ -1,32 +1,27 @@
-import { keyframes } from '@emotion/react';
+import { useTheme } from '@mui/material';
 import GlobalStyles from '@mui/material/GlobalStyles';
 
-const toast = keyframes({
-    '0%': {
-        transform: 'scaleX(1)',
-    },
-    '100%': {
-        transform: 'scaleX(0)',
-    },
-});
+export default () => {
+    const theme = useTheme();
 
-const globalStyles = (
-    <GlobalStyles
-        styles={{
-            '.Toastify__progress-bar': {
-                animation: `${toast} linear 1`,
-            },
+    return (
+        <GlobalStyles
+            styles={{
+                ':root': {
+                    '--toastify-color-progress-light': `${theme.palette.lighter.main}`,
+                    '--toastify-color-progress-dark': `${theme.palette.lighter.main}`,
+                    '--toastify-color-dark': `${theme.palette.toastBackground.main}`,
+                },
 
-            html: {
-                fontFamily: 'Roboto',
-            },
+                html: {
+                    fontFamily: 'Roboto',
+                },
 
-            body: {
-                margin: 0,
-                padding: 0,
-            },
-        }}
-    />
-);
-
-export default globalStyles;
+                body: {
+                    margin: 0,
+                    padding: 0,
+                },
+            }}
+        />
+    );
+};

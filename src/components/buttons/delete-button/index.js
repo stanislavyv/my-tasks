@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
     transition: '0.4s',
-    '&:hover': { color: theme.palette.primary.hover },
+    '&:hover': { color: theme.palette.lighter.main },
 }));
 
 const DeleteButton = ({ task }) => {

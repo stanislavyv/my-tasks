@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-import ClearIcon from '@mui/icons-material/Clear';
 import Undo from '../components/undo';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,7 +18,6 @@ export default () => {
     const notifyDelete = (msg, onUndoHandler, onCloseHandler) => {
         toast.dismiss();
         toast(<Undo msg={msg} onUndo={onUndoHandler} />, {
-            icon: <ClearIcon />,
             autoClose: 6000,
             hideProgressBar: false,
             pauseOnHover: true,

@@ -19,10 +19,15 @@ const ThemeModeProvider = ({ children }) => {
                     mode,
                     primary: {
                         main: mode === 'dark' ? '#45215e' : '#632F87',
-                        hover: mode === 'dark' ? '#6e3597' : '#8a42bd',
+                    },
+                    lighter: {
+                        main: mode === 'dark' ? '#6e3597' : '#8a42bd',
                     },
                     secondary: {
                         main: '#fff',
+                    },
+                    toastBackground: {
+                        main: mode == 'dark' ? '#1a1a1a' : '#fff',
                     },
                 },
             }),

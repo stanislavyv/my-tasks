@@ -12,7 +12,7 @@ const Undo = ({ msg, onUndo, closeToast }) => {
                 {msg}{' '}
                 <Button
                     variant="text"
-                    color={'primary'}
+                    color={'lighter'}
                     onClick={onClickHandler}
                 >
                     Undo
