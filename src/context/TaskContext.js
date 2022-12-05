@@ -41,18 +41,15 @@ const reducer = (state, { type, payload }) => {
             };
 
         case 'UNDO': {
-            const { task, deletedTasks } = payload;
-
-            // We can mutate the input array here because
-            // it's a copy of the state array
-            deletedTasks.pop();
+            const newToRemove = state.toRemove;
+            const task = newToRemove.pop();
 
             const newTasks = [...state.tasks];
-            newTasks.splice(task?.index, 0, task);
+            newTasks.splice(task.index, 0, task);
 
             return {
                 tasks: newTasks,
-                toRemove: deletedTasks,
+                toRemove: newToRemove,
             };
         }
 
@@ -101,18 +98,12 @@ const TaskProvider = ({ children }) => {
 
         const isAlreadyDeleted = toRemove.some((t) => t?.id === inputTask.id);
 
-        // Pass local variable as argument to undo(),
-        // because state wouldn't have updated yet on undo call
-        let newDeletedTasks = [];
         if (!isAlreadyDeleted) {
-            newDeletedTasks = [...toRemove, inputTask];
             dispatch({ type: 'REMOVE_TASK', payload: inputTask });
         }
 
-        notifyDelete(
-            'Task Deleted',
-            () => undo(inputTask, newDeletedTasks),
-            () => deletePermanently(inputTask.id)
+        notifyDelete('Task Deleted', undo, () =>
+            deletePermanently(inputTask.id)
         );
     };
 
@@ -122,11 +113,10 @@ const TaskProvider = ({ children }) => {
         }
     };
 
-    const undo = (inputTask, deletedTasks) => {
+    const undo = (inputTask) => {
         isDeleting.current = false;
 
-        const payload = { task: inputTask, deletedTasks };
-        dispatch({ type: 'UNDO', payload });
+        dispatch({ type: 'UNDO', payload: inputTask });
     };
 
     const value = useMemo(
