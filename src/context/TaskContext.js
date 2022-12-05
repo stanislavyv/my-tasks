@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useMemo, useContext, useRef } from 'react';
+import React, {
+    useState,
+    useEffect,
+    useMemo,
+    useContext,
+    useRef,
+    useReducer,
+} from 'react';
 import useToastify from '../hooks/useToastify';
 
 import { trackPromise } from 'react-promise-tracker';
@@ -7,9 +14,59 @@ import * as taskService from '../services/taskService';
 const TaskContext = React.createContext({});
 TaskContext.displayName = 'TaskContext';
 
+const reducer = (state, { type, payload }) => {
+    switch (type) {
+        case 'SET_TASKS':
+            return {
+                tasks: payload,
+                toRemove: [],
+            };
+
+        case 'CLEAN_REMOVED':
+            return {
+                tasks: state.tasks,
+                toRemove: [],
+            };
+
+        case 'ADD_TASK':
+            return {
+                tasks: [payload, ...state.tasks],
+                toRemove: state.toRemove,
+            };
+
+        case 'REMOVE_TASK':
+            return {
+                tasks: state.tasks.filter((t) => t.id !== payload.id),
+                toRemove: [...state.toRemove, payload],
+            };
+
+        case 'UNDO': {
+            const { task, deletedTasks } = payload;
+
+            // We can mutate the input array here because
+            // it's a copy of the state array
+            deletedTasks.pop();
+
+            const newTasks = [...state.tasks];
+            newTasks.splice(task?.index, 0, task);
+
+            return {
+                tasks: newTasks,
+                toRemove: deletedTasks,
+            };
+        }
+
+        default:
+            return state;
+    }
+};
+
 const TaskProvider = ({ children }) => {
-    const [tasks, setTasks] = useState([]);
-    const [deletedTasks, setDeletedTasks] = useState([]);
+    const [{ tasks, toRemove }, dispatch] = useReducer(reducer, {
+        tasks: [],
+        toRemove: [],
+    });
+
     const isDeleting = useRef(false);
 
     const { notifySuccess, notifyDelete } = useToastify();
@@ -17,45 +74,45 @@ const TaskProvider = ({ children }) => {
     useEffect(() => {
         trackPromise(
             taskService.getAllTasks().then((res) => {
-                setTasks(res);
+                dispatch({ type: 'SET_TASKS', payload: res });
             }),
             'main-area'
         );
 
         return () => {
-            deletedTasks.forEach((d) => {
-                taskService.deleteTask(d.id);
+            toRemove.forEach((t) => {
+                taskService.deleteTask(t.id);
             });
-            setDeletedTasks([]);
+            dispatch({ type: 'CLEAN_REMOVED' });
         };
     }, []);
 
     const addTask = (taskObj) => {
         taskService.createTask(taskObj).then((id) => {
-            setTasks((prev) => [{ id, ...taskObj }, ...prev]);
+            const newTask = { id, ...taskObj };
+
+            dispatch({ type: 'ADD_TASK', payload: newTask });
             notifySuccess('Task Added');
         });
     };
 
-    const deleteTask = (task) => {
+    const deleteTask = (inputTask) => {
         isDeleting.current = true;
-        const { id } = task;
 
-        const filteredTasks = tasks.filter((t) => t?.id !== id);
-        setTasks(filteredTasks);
+        const isAlreadyDeleted = toRemove.some((t) => t?.id === inputTask.id);
 
-        const isAlreadyDeleted = deletedTasks.some((t) => t?.id === id);
-
+        // Pass local variable as argument to undo(),
+        // because state wouldn't have updated yet on undo call
         let newDeletedTasks = [];
         if (!isAlreadyDeleted) {
-            newDeletedTasks = [...deletedTasks, { ...task }];
-            setDeletedTasks(newDeletedTasks);
+            newDeletedTasks = [...toRemove, inputTask];
+            dispatch({ type: 'REMOVE_TASK', payload: inputTask });
         }
 
         notifyDelete(
             'Task Deleted',
-            () => undo(task, newDeletedTasks),
-            () => deletePermanently(id)
+            () => undo(inputTask, newDeletedTasks),
+            () => deletePermanently(inputTask.id)
         );
     };
 
@@ -65,20 +122,11 @@ const TaskProvider = ({ children }) => {
         }
     };
 
-    const undo = (task, deletedTasks) => {
+    const undo = (inputTask, deletedTasks) => {
         isDeleting.current = false;
 
-        // We can mutate the input array here because
-        // it's a copy of the state array
-        deletedTasks.pop();
-        setDeletedTasks(deletedTasks);
-
-        const newTasks = [...tasks];
-        // The task is also deleted here although it had
-        // already been deleted in deleteTask() because
-        // the state wouldn't have been updated yet on undo call
-        newTasks.splice(task?.index, 1, task);
-        setTasks(newTasks);
+        const payload = { task: inputTask, deletedTasks };
+        dispatch({ type: 'UNDO', payload });
     };
 
     const value = useMemo(
@@ -88,7 +136,7 @@ const TaskProvider = ({ children }) => {
             deleteTask,
             undo,
         }),
-        [tasks]
+        [tasks, toRemove]
     );
 
     return <TaskContext.Provider value={value} children={children} />;
