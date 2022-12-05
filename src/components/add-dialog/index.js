@@ -25,7 +25,7 @@ const validationSchema = yup.object({
         .required('Name is required'),
     description: yup
         .string('Enter description')
-        .max(100, 'Description cannot be more than 100 characters')
+        .max(150, 'Description cannot be more than 150 characters')
         .matches(PATTERN_INPUT, 'Description contains illegal characters'),
 });
 
