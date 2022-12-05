@@ -27,7 +27,7 @@ const TasksList = () => {
                     sx={{ alignSelf: 'center' }}
                 />
             ) : (
-                <Stack spacing={2} m={4} mt={10} sx={{ minWidth: '55%' }}>
+                <Stack spacing={2} m={4} mt={10} sx={{ width: '70%' }}>
                     {tasks.length > 0 ? (
                         tasks.map((task, index) => (
                             // concat the index to task because
