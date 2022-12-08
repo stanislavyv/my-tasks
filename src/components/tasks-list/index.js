@@ -32,7 +32,10 @@ const TasksList = () => {
                         tasks.map((task, index) => (
                             // concat the index to task because
                             // nested delete button uses it
-                            <Task task={{ ...task, index }} key={index}></Task>
+                            <Task
+                                task={{ ...task, index }}
+                                key={task.id}
+                            ></Task>
                         ))
                     ) : (
                         <Typography align={'center'} variant={'h4'}>
